@@ -1,0 +1,49 @@
+{
+  "name": "the-driver-rdb",
+  "description": "Relational database driver for the-db",
+  "version": "1.0.0",
+  "author": {
+    "name": "okunishinishi",
+    "email": "okunishinishi@gmail.com",
+    "url": "http://okunishitaka.com"
+  },
+  "browser": "shim",
+  "bugs": {
+    "url": "https://github.com/the-labo/the-driver-rdb/issues"
+  },
+  "dependencies": {
+    "clay-driver-base": "^4.1.4",
+    "sequelize": "^5.0.0-beta.12"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0",
+    "sqlite3": "^4.0.2",
+    "the-script-build": "^4.0.9",
+    "the-script-jsdoc": "^2.0.3",
+    "the-script-release": "^1.0.6",
+    "the-script-share": "^1.0.5",
+    "the-script-update": "^2.0.0",
+    "the-templates": "^5.0.1"
+  },
+  "engines": {
+    "node": ">=8",
+    "npm": ">=4"
+  },
+  "homepage": "https://github.com/the-labo/the-driver-rdb#readme",
+  "keywords": [
+    "the"
+  ],
+  "license": "MIT",
+  "main": "lib",
+  "repository": "the-labo/the-driver-rdb",
+  "scripts": {
+    "build": "the-script-build",
+    "doc": "the-script-jsdoc",
+    "prepare": "the-script-build && the-script-jsdoc",
+    "release": "the-script-release -y",
+    "share": "the-script-share",
+    "test": "mocha",
+    "update": "the-script-update",
+    "watch": "the-script-build -w"
+  }
+}

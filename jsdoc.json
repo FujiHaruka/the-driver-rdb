@@ -1,0 +1,41 @@
+{
+    "functions": [
+        {
+            "name": "create",
+            "access": "",
+            "virtual": false,
+            "description": "Create a TheDriverRDB instance",
+            "parameters": [
+                {
+                    "name": "args",
+                    "type": "*",
+                    "description": "",
+                    "default": "",
+                    "optional": "",
+                    "nullable": ""
+                }
+            ],
+            "examples": [],
+            "returns": {
+                "type": "TheDriverRDB",
+                "description": ""
+            }
+        }
+    ],
+    "classes": [
+        {
+            "name": "TheDriverRDB",
+            "description": "",
+            "extends": [],
+            "access": "",
+            "virtual": false,
+            "fires": "",
+            "constructor": {
+                "name": "TheDriverRDB",
+                "description": "",
+                "parameters": [],
+                "examples": []
+            }
+        }
+    ]
+}
