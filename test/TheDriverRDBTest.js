@@ -5,7 +5,7 @@
 'use strict'
 
 const TheDriverRDB = require('../lib/TheDriverRDB')
-const { ok, strictEqual } = require('assert')
+const { ok, strictEqual: equal } = require('assert')
 
 describe('the-driver-r-d-b', () => {
   before(() => {
@@ -23,17 +23,22 @@ describe('the-driver-r-d-b', () => {
 
     {
       const created = await db.create('User', { name: 123 })
-      strictEqual(created.name, 123)
+      equal(created.name, 123)
 
       {
         const one = await db.one('User', created.id)
-        strictEqual(one.name, 123)
+        equal(one.name, 123)
       }
 
       {
         const updated = await db.update('User', created.id, { hoge: 1 })
-        strictEqual(updated.hoge, 1)
-        strictEqual(updated.id, created.id)
+        equal(updated.hoge, 1)
+        equal(updated.id, created.id)
+      }
+
+      {
+        const destroyed = await db.destroy('User', created.id)
+        equal(destroyed, 1)
       }
     }
 
