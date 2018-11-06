@@ -13,7 +13,10 @@
   },
   "dependencies": {
     "clay-driver-base": "^4.1.4",
-    "sequelize": "^5.0.0-beta.12"
+    "clay-entity": "^2.1.7",
+    "clay-id": "^3.0.2",
+    "sequelize": "^5.0.0-beta.12",
+    "the-check": "^2.0.10"
   },
   "devDependencies": {
     "mocha": "^5.2.0",
