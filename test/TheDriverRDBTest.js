@@ -61,8 +61,8 @@ describe('the-driver-r-d-b', () => {
       storage: `${__dirname}/../tmp/list-test.db`
     })
     await db.drop('Box')
-    await db.create('Box', { name: 'b01' })
-    await db.create('Box', { name: 'b02' })
+    const created01 = await db.create('Box', { name: 'b01' })
+    const created02 = await db.create('Box', { name: 'b02' })
     equal(
       (await db.list('Box', { filter: { name: 'b02' } })).meta.total,
       1
@@ -75,6 +75,15 @@ describe('the-driver-r-d-b', () => {
     equal(
       (await db.list('Box', { filter: { __unknown__: 'xxxx' } })).meta.total,
       0
+    )
+
+    equal(
+      (await db.list('Box', { sort: 'name' })).entities[0].id,
+      created01.id,
+    )
+    equal(
+      (await db.list('Box', { sort: '-name' })).entities[0].id,
+      created02.id
     )
   })
 })
