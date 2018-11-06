@@ -12,9 +12,11 @@
     "url": "https://github.com/the-labo/the-driver-rdb/issues"
   },
   "dependencies": {
+    "clay-collection": "^3.1.5",
     "clay-driver-base": "^4.1.4",
     "clay-entity": "^2.1.7",
     "clay-id": "^3.0.2",
+    "clay-list-pager": "^3.0.1",
     "sequelize": "^5.0.0-beta.12",
     "the-check": "^2.0.10"
   },

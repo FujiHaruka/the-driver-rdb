@@ -40,10 +40,32 @@ describe('the-driver-r-d-b', () => {
         const destroyed = await db.destroy('User', created.id)
         equal(destroyed, 1)
       }
+
+      {
+        const listed = await db.list('User')
+        equal(listed.meta.total, 0)
+      }
+
+      {
+        await db.drop('User')
+      }
     }
 
     await db.close()
     ok(db.closed)
+  })
+
+  it('Lists', async () => {
+    const db = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/list-test.db`
+    })
+    await db.create('Box', { name: 'b01' })
+    await db.create('Box', { name: 'b02' })
+    console.log(
+      (await db.list('Box', { filter: { name: 'b02' } })).meta
+    )
+    await db.drop('Box')
   })
 })
 
