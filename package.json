@@ -12,13 +12,18 @@
     "url": "https://github.com/the-labo/the-driver-rdb/issues"
   },
   "dependencies": {
+    "asobj": "^3.0.0",
     "clay-collection": "^3.1.5",
+    "clay-constants": "^3.4.4",
     "clay-driver-base": "^4.1.4",
     "clay-entity": "^2.1.7",
     "clay-id": "^3.0.2",
     "clay-list-pager": "^3.0.1",
+    "clay-resource-ref": "^2.0.8",
+    "clay-serial": "^2.1.3",
     "sequelize": "^5.0.0-beta.12",
-    "the-check": "^2.0.10"
+    "the-check": "^2.0.10",
+    "utf8": "^3.0.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",

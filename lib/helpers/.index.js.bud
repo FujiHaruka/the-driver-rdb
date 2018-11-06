@@ -1,13 +1,11 @@
 'use strict'
 
-const pkg = require('../package.json')
 const { dir } = require('the-templates')
 
 module.exports = dir({
-  cjs: true,
   dirname: __dirname,
-  name: pkg.name,
-  description: pkg.description,
+  name: 'helpers',
+  cjs: true,
 })
 
 if (!module.parent) {

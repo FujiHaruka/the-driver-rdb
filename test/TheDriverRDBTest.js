@@ -60,12 +60,22 @@ describe('the-driver-r-d-b', () => {
       dialect: 'sqlite',
       storage: `${__dirname}/../tmp/list-test.db`
     })
+    await db.drop('Box')
     await db.create('Box', { name: 'b01' })
     await db.create('Box', { name: 'b02' })
-    console.log(
-      (await db.list('Box', { filter: { name: 'b02' } })).meta
+    equal(
+      (await db.list('Box', { filter: { name: 'b02' } })).meta.total,
+      1
     )
-    await db.drop('Box')
+    equal(
+      (await db.list('Box', { filter: { name: 'xxxx' } })).meta.total,
+      0
+    )
+
+    equal(
+      (await db.list('Box', { filter: { __unknown__: 'xxxx' } })).meta.total,
+      0
+    )
   })
 })
 
