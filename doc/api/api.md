@@ -5,6 +5,12 @@ Relational database driver for the-db
 
 + Functions
   + [create(args)](#the-driver-rdb-function-create)
+  + [sequelizeMix()](#the-driver-rdb-function-sequelize-mix)
+  + [metaModel()](#the-driver-rdb-function-meta-model)
+  + [resourceModel()](#the-driver-rdb-function-resource-model)
+  + [parseAttributeName()](#the-driver-rdb-function-parse-attribute-name)
+  + [parseFilter()](#the-driver-rdb-function-parse-filter)
+  + [parseSort()](#the-driver-rdb-function-parse-sort)
 + [`TheDriverRDB`](#the-driver-rdb-classes) Class
   + [new TheDriverRDB()](#the-driver-rdb-classes-the-driver-r-d-b-constructor)
 
@@ -19,6 +25,46 @@ Create a TheDriverRDB instance
 | Param | Type | Description |
 | ----- | --- | -------- |
 | args | * |  |
+
+<a class='md-heading-link' name="the-driver-rdb-function-sequelize-mix" ></a>
+
+### sequelizeMix()
+
+Mixin of sequelize
+<a class='md-heading-link' name="the-driver-rdb-function-meta-model" ></a>
+
+### metaModel()
+
+
+<a class='md-heading-link' name="the-driver-rdb-function-resource-model" ></a>
+
+### resourceModel()
+
+Define resource model
+<a class='md-heading-link' name="the-driver-rdb-function-parse-attribute-name" ></a>
+
+### parseAttributeName() -> `string`
+
+
+
+| Param | Type | Description |
+| ----- | --- | -------- |
+|  | string |  |
+
+<a class='md-heading-link' name="the-driver-rdb-function-parse-filter" ></a>
+
+### parseFilter() -> `Object`
+
+Parse filter into where
+
+| Param | Type | Description |
+| ----- | --- | -------- |
+|  | Object |  |
+
+<a class='md-heading-link' name="the-driver-rdb-function-parse-sort" ></a>
+
+### parseSort()
+
 
 
 

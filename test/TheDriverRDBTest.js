@@ -102,13 +102,27 @@ describe('the-driver-r-d-b', () => {
     await driver.drop('Box')
     await driver.drop('BoxGroup')
 
-    const boxGroup01 = await driver.create('BoxGroup', { name: 'bg01' })
-    const boxGroup02 = await driver.create('BoxGroup', { name: 'bg02' })
+    const group01 = await driver.create('BoxGroup', { name: 'bg01' })
+    const group02 = await driver.create('BoxGroup', { name: 'bg02' })
 
-    const box01 = await driver.create('Box', { group: boxGroup01 })
-    const box02 = await driver.create('Box', { group: boxGroup02 })
+    const box01 = await driver.create('Box', { group: { $ref: `Group#${group01.id}` } })
+    const box02 = await driver.create('Box', { group: { $ref: `Group#${group02.id}` } })
 
-    console.log(box01)
+    equal(box01.group.$ref, `Group#${group01.id}`)
+
+    equal(
+      (await driver.list('Box', {
+        filter: { group: { $ref: `Group#${group01.id}` } }
+      })).entities[0].id,
+      box01.id,
+    )
+
+    equal(
+      (await driver.list('Box', {
+        filter: { group: { $ref: `Group#${group02.id}` } }
+      })).entities[0].id,
+      box02.id,
+    )
 
   })
 })

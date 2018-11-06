@@ -20,6 +20,80 @@
                 "type": "TheDriverRDB",
                 "description": ""
             }
+        },
+        {
+            "name": "sequelizeMix",
+            "access": "",
+            "virtual": false,
+            "description": "Mixin of sequelize",
+            "parameters": [],
+            "examples": []
+        },
+        {
+            "name": "metaModel",
+            "access": "",
+            "virtual": false,
+            "description": "",
+            "parameters": [],
+            "examples": []
+        },
+        {
+            "name": "resourceModel",
+            "access": "",
+            "virtual": false,
+            "description": "Define resource model",
+            "parameters": [],
+            "examples": []
+        },
+        {
+            "name": "parseAttributeName",
+            "access": "",
+            "virtual": false,
+            "description": "",
+            "parameters": [
+                {
+                    "name": null,
+                    "type": "string",
+                    "description": "",
+                    "default": "",
+                    "optional": "",
+                    "nullable": ""
+                }
+            ],
+            "examples": [],
+            "returns": {
+                "type": "string",
+                "description": ""
+            }
+        },
+        {
+            "name": "parseFilter",
+            "access": "",
+            "virtual": false,
+            "description": "Parse filter into where",
+            "parameters": [
+                {
+                    "name": null,
+                    "type": "Object",
+                    "description": "",
+                    "default": "",
+                    "optional": "",
+                    "nullable": ""
+                }
+            ],
+            "examples": [],
+            "returns": {
+                "type": "Object",
+                "description": ""
+            }
+        },
+        {
+            "name": "parseSort",
+            "access": "",
+            "virtual": false,
+            "description": "",
+            "parameters": [],
+            "examples": []
         }
     ],
     "classes": [
