@@ -108,6 +108,8 @@ describe('the-driver-r-d-b', () => {
     const box01 = await driver.create('Box', { group: boxGroup01 })
     const box02 = await driver.create('Box', { group: boxGroup02 })
 
+    console.log(box01)
+
   })
 })
 
