@@ -5,7 +5,7 @@
 'use strict'
 
 const TheDriverRDB = require('../lib/TheDriverRDB')
-const { ok, strictEqual: equal } = require('assert')
+const { ok, strictEqual: equal, deepStrictEqual: deepEqual } = require('assert')
 
 describe('the-driver-r-d-b', () => {
   before(() => {
@@ -124,6 +124,52 @@ describe('the-driver-r-d-b', () => {
       box02.id,
     )
 
+  })
+
+  it('Handling object and array', async () => {
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/obj-array-test.db`
+    })
+
+    const created = await driver.create('Big', {
+      name: 'd1',
+      values: {
+        s1: 'string01',
+        s2: 'string02',
+        o1: { 'k1': 'This is key01', 'k2': 'This is key02' },
+        d1: new Date(),
+        n1: 1,
+        b1: true,
+        a1: new Array(500).fill(null).map((_, i) => i)
+      },
+    })
+    equal(created.values.o1.k1, 'This is key01')
+    equal(created.values.b1, true)
+    equal(created.values.a1.length, 500)
+
+    const updated = await driver.update('Big', created.id, {
+      values: { n2: 2, b1: null, o1: { k3: 'This is key03' } }
+    })
+
+    deepEqual(updated.values.o1, { k3: 'This is key03' })
+  })
+
+  // https://github.com/realglobe-Inc/claydb/issues/12
+  it('Handle array', async () => {
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/handling-array-test.db`
+    })
+    const user01 = await driver.create('User', { strings: ['a', 'b'] })
+    const user02 = await driver.create('User', {})
+    const user01Updated = await driver.update('User', user01.id, { strings: ['c'] })
+
+    deepEqual(user01.strings, ['a', 'b'])
+    deepEqual(user02.strings, null)
+    deepEqual(user01Updated.strings, ['c'])
+
+    await driver.close()
   })
 })
 
