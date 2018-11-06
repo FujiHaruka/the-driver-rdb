@@ -21,6 +21,8 @@ describe('the-driver-r-d-b', () => {
     })
     ok(!driver.closed)
 
+    await driver.drop('User')
+
     {
       const created = await driver.create('User', { name: 123 })
       equal(created.name, 123)
@@ -28,6 +30,11 @@ describe('the-driver-r-d-b', () => {
       {
         const one = await driver.one('User', created.id)
         equal(one.name, 123)
+      }
+
+      {
+        const listed = await driver.list('User', {})
+        equal(listed.meta.total, 1)
       }
 
       {
@@ -42,7 +49,7 @@ describe('the-driver-r-d-b', () => {
       }
 
       {
-        const listed = await driver.list('User')
+        const listed = await driver.list('User', {})
         equal(listed.meta.total, 0)
       }
 
