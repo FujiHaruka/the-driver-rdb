@@ -30,6 +30,14 @@
             "examples": []
         },
         {
+            "name": "extraModel",
+            "access": "",
+            "virtual": false,
+            "description": "Define extra model",
+            "parameters": [],
+            "examples": []
+        },
+        {
             "name": "metaModel",
             "access": "",
             "virtual": false,
