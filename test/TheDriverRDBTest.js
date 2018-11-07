@@ -173,6 +173,22 @@ describe('the-driver-r-d-b', () => {
 
     await driver.close()
   })
+
+  it('Date type comparison', async () => {
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/date-compare.db`
+    })
+    await driver.drop('A')
+    await driver.create('A', {
+      at: new Date('2000-01-01'),
+    })
+    await driver.create('A', {
+      at: new Date('2020-01-01'),
+    })
+    const list = await driver.list('A', { filter: { at: { $gt: new Date('1999-01-01') } } })
+    equal(list.meta.total, 2)
+  })
 })
 
 /* global describe, before, after, it */
