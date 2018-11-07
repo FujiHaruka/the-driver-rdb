@@ -24,12 +24,14 @@ describe('the-driver-r-d-b', () => {
     await driver.drop('User')
 
     {
-      const created = await driver.create('User', { name: 123 })
+      const $$at = new Date()
+      const created = await driver.create('User', { name: 123, $$at: $$at, })
       equal(created.name, 123)
 
       {
         const one = await driver.one('User', created.id)
         equal(one.name, 123)
+        equal(one.$$at - $$at, 0)
       }
 
       {
