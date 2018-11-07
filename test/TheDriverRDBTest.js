@@ -189,6 +189,24 @@ describe('the-driver-r-d-b', () => {
     const list = await driver.list('A', { filter: { at: { $gt: new Date('1999-01-01') } } })
     equal(list.meta.total, 2)
   })
+
+  it('Invalid filter', async () => {
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/empty-filter.db`
+    })
+    await driver.drop('A')
+    await driver.drop('B')
+    const a1 = await driver.create('A', { i: 1 })
+    const a2 = await driver.create('A', { i: 2 })
+    const b1 = await driver.create('B', { i: 1 })
+
+    equal(
+      (await driver.list('A', { filter: { 'b': b1, i: 1 } })).entities.length,
+      0,
+    )
+    await driver.close()
+  })
 })
 
 /* global describe, before, after, it */
