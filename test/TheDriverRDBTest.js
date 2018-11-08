@@ -17,7 +17,7 @@ describe('the-driver-r-d-b', () => {
 
   it('Do test', async () => {
     const storage = `${__dirname}/../tmp/hoge-2.db`
-    await unlinkAsync(storage)
+    // await unlinkAsync(storage).catch(() => null)
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
       storage: storage,
@@ -243,11 +243,13 @@ describe('the-driver-r-d-b', () => {
       dialect: 'sqlite',
       storage: `${__dirname}/../tmp/multiple-instance.db`
     })
-    await driver01.create('HOGE', { foo: 'bar' })
+    const created = await driver01.create('HOGE', { foo: 'bar' })
+    equal(created.foo, 'bar')
     console.log(
       (await driver01.list('HOGE')).entities[0],
     )
     await driver01.close()
+    return
 
     const driver02 = new TheDriverRDB({
       dialect: 'sqlite',
