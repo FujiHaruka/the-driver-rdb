@@ -6,6 +6,7 @@ Relational database driver for the-db
 + Functions
   + [create(args)](#the-driver-rdb-function-create)
   + [sequelizeMix()](#the-driver-rdb-function-sequelize-mix)
+  + [extraModel()](#the-driver-rdb-function-extra-model)
   + [metaModel()](#the-driver-rdb-function-meta-model)
   + [resourceModel()](#the-driver-rdb-function-resource-model)
   + [parseAttributeName()](#the-driver-rdb-function-parse-attribute-name)
@@ -31,6 +32,11 @@ Create a TheDriverRDB instance
 ### sequelizeMix()
 
 Mixin of sequelize
+<a class='md-heading-link' name="the-driver-rdb-function-extra-model" ></a>
+
+### extraModel()
+
+Define extra model
 <a class='md-heading-link' name="the-driver-rdb-function-meta-model" ></a>
 
 ### metaModel()

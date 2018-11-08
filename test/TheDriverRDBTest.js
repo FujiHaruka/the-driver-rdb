@@ -207,6 +207,32 @@ describe('the-driver-r-d-b', () => {
     )
     await driver.close()
   })
+
+  it('Multiple extra', async () => {
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/multiple-extra.db`
+    })
+    await driver.drop('Poster')
+
+    const poster01 = await driver.create('Poster', {
+      attr01: new Array(200).fill('a').join('_'),
+      attr02: new Array(200).fill('b').join('_'),
+      attr03: {
+        c: new Array(10).fill(null).map((_, i) => ({ i })),
+      }
+    })
+
+    const { entities, meta } = await driver.list('Poster')
+    deepEqual({ offset: 0, limit: 100, total: 1, length: 1 }, meta)
+
+    const updated = await driver.update('Poster', poster01.id, {
+      attr03: {
+        c: new Array(200).fill(null).map((_, i) => ({ i })),
+      }
+    })
+    // equal(updated.attr03.c.length, 200)
+  })
 })
 
 /* global describe, before, after, it */
