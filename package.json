@@ -22,11 +22,12 @@
     "clay-resource-ref": "^2.0.8",
     "clay-serial": "^2.1.4",
     "msgpack-lite": "^0.1.26",
-    "sequelize": "^5.0.0-beta.12",
+    "sequelize": "^5.0.0-beta.14",
     "the-check": "^2.0.12",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
+    "asfs": "^2.0.3",
     "mocha": "^5.2.0",
     "sqlite3": "^4.0.3",
     "the-script-build": "^4.0.11",
