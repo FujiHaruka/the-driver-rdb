@@ -157,8 +157,7 @@ describe('the-driver-r-d-b', () => {
       values: { n2: 2, b1: null, o1: { k3: 'This is key03' } }
     })
 
-    // deepEqual(updated.values.o1, { k3: 'This is key03' })
-    console.log('updated', updated)
+    deepEqual(updated.values.o1, { k3: 'This is key03' })
   })
 
   // https://github.com/realglobe-Inc/claydb/issues/12
@@ -172,10 +171,9 @@ describe('the-driver-r-d-b', () => {
     const user02 = await driver.create('User', {})
     const user01Updated = await driver.update('User', user01.id, { strings: ['c'] })
 
-    console.log('user01.strings', user01.strings)
-    // deepEqual(user01.strings, ['a', 'b'])
-    // deepEqual(user02.strings, null)
-    // deepEqual(user01Updated.strings, ['c'])
+    deepEqual(user01.strings, ['a', 'b'])
+    deepEqual(user02.strings, null)
+    deepEqual(user01Updated.strings, ['c'])
 
     await driver.close()
   })
@@ -237,8 +235,30 @@ describe('the-driver-r-d-b', () => {
         c: new Array(200).fill(null).map((_, i) => ({ i })),
       }
     })
-    // equal(updated.attr03.c.length, 200)
+    equal(updated.attr03.c.length, 200)
   })
+
+  it('Multiple instance', async () => {
+    const driver01 = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/multiple-instance.db`
+    })
+    await driver01.create('HOGE', { foo: 'bar' })
+    console.log(
+      (await driver01.list('HOGE')).entities[0],
+    )
+    await driver01.close()
+
+    const driver02 = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/multiple-instance.db`
+    })
+    console.log(
+      (await driver02.list('HOGE')).entities[0],
+    )
+    await driver02.close()
+  })
+
 })
 
 /* global describe, before, after, it */
