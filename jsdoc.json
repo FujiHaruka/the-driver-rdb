@@ -117,7 +117,21 @@
                 "description": "",
                 "parameters": [],
                 "examples": []
-            }
+            },
+            "functions": [
+                {
+                    "name": "untilReady",
+                    "access": "",
+                    "virtual": false,
+                    "description": "Wait until ready",
+                    "parameters": [],
+                    "examples": [],
+                    "returns": {
+                        "type": "Promise.<void>",
+                        "description": ""
+                    }
+                }
+            ]
         }
     ]
 }
