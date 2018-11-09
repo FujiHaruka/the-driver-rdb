@@ -190,6 +190,10 @@ describe('the-driver-r-d-b', () => {
     await driver.create('A', {
       at: new Date('2020-01-01'),
     })
+    await driver.create('A', {
+      at: new Date('1980-01-01'),
+      x:1,
+    })
     const list = await driver.list('A', { filter: { at: { $gt: new Date('1999-01-01') } } })
     equal(list.meta.total, 2)
   })
@@ -245,19 +249,23 @@ describe('the-driver-r-d-b', () => {
     })
     const created = await driver01.create('HOGE', { foo: 'bar' })
     equal(created.foo, 'bar')
-    console.log(
-      (await driver01.list('HOGE')).entities[0],
-    )
+
+    const created2 = await driver01.create('HOGE', { foo: 'baz' })
+    equal(created2.foo, 'baz')
+    equal((await driver01.one('HOGE', created.id)).foo, 'bar')
+    equal((await driver01.one('HOGE', created2.id)).foo, 'baz')
     await driver01.close()
-    return
 
     const driver02 = new TheDriverRDB({
       dialect: 'sqlite',
       storage: `${__dirname}/../tmp/multiple-instance.db`
     })
-    console.log(
-      (await driver02.list('HOGE')).entities[0],
+    equal(
+      (await driver02.list('HOGE')).entities[0].foo,
+      'bar',
     )
+
+    await driver02.create('HOGE', { foo2: 'bar2' })
     await driver02.close()
   })
 
