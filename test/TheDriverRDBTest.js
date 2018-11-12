@@ -17,13 +17,14 @@ describe('the-driver-r-d-b', () => {
 
   it('Do test', async () => {
     const storage = `${__dirname}/../tmp/hoge-2.db`
-    // await unlinkAsync(storage).catch(() => null)
+    await unlinkAsync(storage).catch(() => null)
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
       storage: storage,
       // logging: console.log,
     })
     ok(!driver.closed)
+    await driver.drop('User')
 
     {
       const $$at = new Date()
@@ -192,7 +193,7 @@ describe('the-driver-r-d-b', () => {
     })
     await driver.create('A', {
       at: new Date('1980-01-01'),
-      x:1,
+      x: 1,
     })
     const list = await driver.list('A', { filter: { at: { $gt: new Date('1999-01-01') } } })
     equal(list.meta.total, 2)
