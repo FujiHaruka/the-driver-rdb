@@ -63,6 +63,10 @@ describe('the-driver-r-d-b', () => {
       }
     }
 
+    deepEqual(
+      await driver.resources(),
+      [{ name: 'User', domain: null }],
+    )
     await driver.close()
     ok(driver.closed)
   })
