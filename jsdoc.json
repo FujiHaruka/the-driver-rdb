@@ -22,6 +22,14 @@
             }
         },
         {
+            "name": "mysqlDump",
+            "access": "",
+            "virtual": false,
+            "description": "Create mysql dump",
+            "parameters": [],
+            "examples": []
+        },
+        {
             "name": "sequelizeMix",
             "access": "",
             "virtual": false,
