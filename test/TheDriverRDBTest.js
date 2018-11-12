@@ -97,6 +97,10 @@ describe('the-driver-r-d-b', () => {
       (await driver.list('Box', { sort: '-name' })).entities[0].id,
       created02.id
     )
+
+    ok(
+      await driver.list('Box', { sort: '-__unknown_prop__' })
+    )
   })
 
   it('List by ref', async () => {
