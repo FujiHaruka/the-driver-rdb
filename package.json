@@ -12,6 +12,7 @@
     "url": "https://github.com/the-labo/the-driver-rdb/issues"
   },
   "dependencies": {
+    "amkdirp": "^2.0.0",
     "asobj": "^3.0.0",
     "clay-collection": "^3.1.5",
     "clay-constants": "^3.4.4",
@@ -22,6 +23,7 @@
     "clay-resource-name": "^4.0.5",
     "clay-resource-ref": "^2.0.8",
     "clay-serial": "^2.1.4",
+    "moment": "^2.22.2",
     "msgpack-lite": "^0.1.26",
     "sequelize": "^5.0.0-beta.14",
     "the-check": "^2.0.13",
