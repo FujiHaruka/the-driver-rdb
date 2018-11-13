@@ -27,14 +27,12 @@ describe('the-driver-r-d-b', () => {
     await driver.drop('User')
 
     {
-      const $$at = new Date()
-      const created = await driver.create('User', { name: 123, $$at: $$at, })
+      const created = await driver.create('User', { name: 123, })
       equal(created.name, 123)
 
       {
         const one = await driver.one('User', created.id)
         equal(one.name, 123)
-        equal(one.$$at - $$at, 0)
       }
 
       {
@@ -104,6 +102,33 @@ describe('the-driver-r-d-b', () => {
 
     ok(
       await driver.list('Box', { sort: '-__unknown_prop__' })
+    )
+
+    equal(
+      (await driver.list('Box', { sort: '-$$at' })).entities[0].id,
+      created02.id,
+    )
+
+    equal(
+      (await driver.list('Box', { sort: '$$at' })).entities[0].id,
+      created01.id,
+    )
+
+    equal(
+      (await driver.list('Box', {
+        filter: {
+          $$at: { $gt: new Date() }
+        }
+      })).entities.length,
+      0,
+    )
+    equal(
+      (await driver.list('Box', {
+        filter: {
+          $$at: { $lte: new Date() }
+        }
+      })).entities.length,
+      2,
     )
   })
 
