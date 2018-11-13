@@ -162,6 +162,7 @@ describe('the-driver-r-d-b', () => {
       box02.id,
     )
 
+    await driver.update('Box', box02.id, { v: 2 })
   })
 
   it('Handling object and array', async () => {
