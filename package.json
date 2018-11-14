@@ -33,12 +33,12 @@
     "asfs": "^2.0.3",
     "mocha": "^5.2.0",
     "sqlite3": "^4.0.4",
-    "the-script-build": "^4.0.11",
+    "the-script-build": "^4.0.12",
     "the-script-jsdoc": "^2.0.3",
     "the-script-release": "^1.0.8",
     "the-script-share": "^1.0.5",
     "the-script-update": "^2.0.0",
-    "the-templates": "^5.0.1"
+    "the-templates": "^5.0.2"
   },
   "engines": {
     "node": ">=8",
