@@ -69,6 +69,26 @@ describe('the-driver-r-d-b', () => {
     ok(driver.closed)
   })
 
+  it('Multiple create', async () => {
+    const storage = `${__dirname}/../tmp/hoge-2.db`
+    await unlinkAsync(storage).catch(() => null)
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: storage,
+      // logging: console.log,
+    })
+
+    {
+      const user01 = await driver.create('User', { a: 1 })
+      const user01updated = await driver.update('User', user01.id, { b: 2 })
+      const user02 = await driver.create('User', { c: 3 })
+      equal(user01updated.a, 1)
+      equal(user01updated.b, 2)
+      equal(user02.c, 3)
+    }
+    await driver.drop('User')
+  })
+
   it('Lists', async () => {
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
@@ -282,13 +302,27 @@ describe('the-driver-r-d-b', () => {
       dialect: 'sqlite',
       storage: `${__dirname}/../tmp/multiple-instance.db`
     })
+    await driver01.drop('HOGE')
     const created = await driver01.create('HOGE', { foo: 'bar' })
     equal(created.foo, 'bar')
 
-    const created2 = await driver01.create('HOGE', { foo: 'baz' })
-    equal(created2.foo, 'baz')
+    const created02 = await driver01.create('HOGE', { foo: 'baz' })
+    equal(created02.foo, 'baz')
     equal((await driver01.one('HOGE', created.id)).foo, 'bar')
-    equal((await driver01.one('HOGE', created2.id)).foo, 'baz')
+    equal((await driver01.one('HOGE', created02.id)).foo, 'baz')
+
+    const created03 = await driver01.create('HOGE', {
+      a: 1,
+      b: 2,
+    })
+    equal(created03.a, 1)
+    equal(created03.b, 2)
+
+    equal(
+      (await driver01.list('HOGE')).entities[0].foo,
+      'bar'
+    )
+
     await driver01.close()
 
     const driver02 = new TheDriverRDB({
