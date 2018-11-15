@@ -295,6 +295,11 @@ describe('the-driver-r-d-b', () => {
       }
     })
     equal(updated.attr03.c.length, 200)
+
+    {
+      const updated02 = await driver.update('Poster', poster01.id, { attr02: 123 })
+      equal(updated02.attr02, 123)
+    }
   })
 
   it('Multiple instance', async () => {
