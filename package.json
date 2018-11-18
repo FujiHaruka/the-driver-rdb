@@ -26,14 +26,15 @@
     "moment": "^2.22.2",
     "msgpack-lite": "^0.1.26",
     "sequelize": "^5.0.0-beta.14",
-    "the-check": "^2.0.13",
+    "the-check": "^2.0.16",
     "utf8": "^3.0.0"
   },
   "devDependencies": {
     "asfs": "^2.0.3",
+    "clay-lump": "^4.4.19",
     "mocha": "^5.2.0",
     "sqlite3": "^4.0.4",
-    "the-script-build": "^4.0.12",
+    "the-script-build": "^4.0.13",
     "the-script-jsdoc": "^2.0.3",
     "the-script-release": "^1.0.8",
     "the-script-share": "^1.0.5",

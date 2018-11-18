@@ -7,6 +7,7 @@
 const TheDriverRDB = require('../lib/TheDriverRDB')
 const { ok, strictEqual: equal, deepStrictEqual: deepEqual } = require('assert')
 const { unlinkAsync } = require('asfs')
+const clayLump = require('clay-lump')
 
 describe('the-driver-r-d-b', () => {
   before(() => {
@@ -41,9 +42,15 @@ describe('the-driver-r-d-b', () => {
       }
 
       {
-        const updated = await driver.update('User', created.id, { hoge: 1 })
+        const updated = await driver.update('User', created.id, {
+          hoge: 1,
+          name: null,
+          icon: '🍣🍺'
+        })
         equal(updated.hoge, 1)
         equal(updated.id, created.id)
+        equal(updated.icon, '🍣🍺')
+        ok((await driver.one('User', created.id)).name === null)
       }
 
       {
@@ -343,6 +350,24 @@ describe('the-driver-r-d-b', () => {
     await driver02.close()
   })
 
+  it('sqlite/issues/5', async () => {
+    const storage = `${__dirname}/../sqlite-issue-5.db`
+    await unlinkAsync(storage).catch(() => null)
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: storage,
+      // logging: console.log,
+    })
+    const lump = clayLump('hec-eye-alpha', { driver, })
+    let User = lump.resource('user')
+    await User.drop()
+    let created = await User.create({ name: 'hoge' })
+    let found = await User.first({ name: 'hoge' })
+    let destroyed = await User.destroy(found.id)
+    equal(destroyed, 1)
+    let mustBeNull = await User.first({ name: 'hoge' })
+    ok(!mustBeNull)
+  })
 })
 
 /* global describe, before, after, it */
