@@ -119,6 +119,11 @@ describe('the-driver-r-d-b', () => {
     )
 
     equal(
+      (await driver.list('Box', { filter: { name: ['b01', 'b03'] } })).meta.total,
+      1,
+    )
+
+    equal(
       (await driver.list('Box', { sort: 'name' })).entities[0].id,
       created01.id,
     )
