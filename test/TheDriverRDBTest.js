@@ -377,7 +377,7 @@ describe('the-driver-r-d-b', () => {
   it('A lot of create', async () => {
     for (let i = 0; i < 2; i++) {
       const storage = `${__dirname}/../tmp/a-lot-of-create.db`
-      await unlinkAsync(storage)
+      await unlinkAsync(storage).catch(() => null)
       for (let j = 0; j < 2; j++) {
         const driver01 = new TheDriverRDB({
           dialect: 'sqlite',
