@@ -1,7 +1,7 @@
 {
   "name": "the-driver-rdb",
   "description": "Relational database driver for the-db",
-  "version": "2.0.31",
+  "version": "2.0.32",
   "author": {
     "name": "okunishinishi",
     "email": "okunishinishi@gmail.com",
