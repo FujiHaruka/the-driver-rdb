@@ -26,6 +26,7 @@
     "moment": "^2.22.2",
     "msgpack-lite": "^0.1.26",
     "sequelize": "^5.0.0-beta.14",
+    "the-array": "^1.4.1",
     "the-check": "^2.0.16",
     "utf8": "^3.0.0"
   },

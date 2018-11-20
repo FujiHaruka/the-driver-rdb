@@ -373,6 +373,18 @@ describe('the-driver-r-d-b', () => {
     let mustBeNull = await User.first({ name: 'hoge' })
     ok(!mustBeNull)
   })
+
+  it('A lot of create', async () => {
+    const driver01 = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage: `${__dirname}/../tmp/a-lot-of-create.db`
+    })
+    await driver01.drop('hoge')
+    for (let i = 0; i < 100; i++) {
+      await driver01.create('hoge', { i })
+    }
+    await driver01.close()
+  })
 })
 
 /* global describe, before, after, it */
