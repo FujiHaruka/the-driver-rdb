@@ -9,7 +9,8 @@ const { ok, strictEqual: equal, deepStrictEqual: deepEqual } = require('assert')
 const { unlinkAsync } = require('asfs')
 const clayLump = require('clay-lump')
 
-describe('the-driver-r-d-b', () => {
+describe('the-driver-r-d-b', function () {
+  this.timeout(8 * 1000)
   before(() => {
   })
 
