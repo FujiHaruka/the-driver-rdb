@@ -375,15 +375,21 @@ describe('the-driver-r-d-b', () => {
   })
 
   it('A lot of create', async () => {
-    const driver01 = new TheDriverRDB({
-      dialect: 'sqlite',
-      storage: `${__dirname}/../tmp/a-lot-of-create.db`
-    })
-    await driver01.drop('hoge')
-    for (let i = 0; i < 100; i++) {
-      await driver01.create('hoge', { i })
+    for (let i = 0; i < 2; i++) {
+      const storage = `${__dirname}/../tmp/a-lot-of-create.db`
+      await unlinkAsync(storage)
+      for (let j = 0; j < 2; j++) {
+        const driver01 = new TheDriverRDB({
+          dialect: 'sqlite',
+          storage
+        })
+        await driver01.drop('hoge')
+        for (let i = 0; i < 30; i++) {
+          await driver01.create('hoge', { i })
+        }
+        await driver01.close()
+      }
     }
-    await driver01.close()
   })
 })
 
