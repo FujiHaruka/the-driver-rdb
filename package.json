@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "amkdirp": "^2.0.0",
+    "asleep": "^1.0.3",
     "asobj": "^3.0.0",
     "clay-collection": "^3.1.5",
     "clay-constants": "^3.4.4",
