@@ -386,10 +386,13 @@ describe('the-driver-r-d-b', function () {
           dialect: 'sqlite',
           storage
         })
+
         await driver01.drop('hoge')
-        for (let i = 0; i < 30; i++) {
-          await driver01.create('hoge', { i })
-        }
+        await Promise.all(
+          new Array(100).fill(null).map((i) =>
+            driver01.create('hoge', { i })
+          )
+        )
         await driver01.close()
       }
     }
