@@ -89,7 +89,7 @@ tryExample().catch((err) => console.error(err))
 API Guide
 -----
 
-+ [the-driver-rdb@2.0.29](./doc/api/api.md)
++ [the-driver-rdb@2.0.30](./doc/api/api.md)
   + [create(args)](./doc/api/api.md#the-driver-rdb-function-create)
   + [TheDriverRDB](./doc/api/api.md#the-driver-r-d-b-class)
 
