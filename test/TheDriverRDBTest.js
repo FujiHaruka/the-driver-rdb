@@ -291,8 +291,8 @@ describe('the-driver-r-d-b', () => {
     await driver.drop('Poster')
 
     const poster01 = await driver.create('Poster', {
-      attr01: new Array(200).fill('a').join('_'),
-      attr02: new Array(200).fill('b').join('_'),
+      attr01: new Array(2000).fill('a').join('_'),
+      attr02: new Array(2000).fill('b').join('_'),
       attr03: {
         c: new Array(10).fill(null).map((_, i) => ({ i })),
       }
@@ -303,10 +303,10 @@ describe('the-driver-r-d-b', () => {
 
     const updated = await driver.update('Poster', poster01.id, {
       attr03: {
-        c: new Array(200).fill(null).map((_, i) => ({ i })),
+        c: new Array(2000).fill(null).map((_, i) => ({ i })),
       }
     })
-    equal(updated.attr03.c.length, 200)
+    equal(updated.attr03.c.length, 2000)
 
     {
       const updated02 = await driver.update('Poster', poster01.id, { attr02: 123 })
