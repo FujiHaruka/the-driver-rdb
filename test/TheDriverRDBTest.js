@@ -115,6 +115,11 @@ describe('the-driver-r-d-b', function () {
     )
 
     equal(
+      1,
+      (await driver.list('Box', { filter: { name: { $like: '%02%' } } })).meta.total,
+    )
+
+    equal(
       (await driver.list('Box', { filter: { __unknown__: 'xxxx' } })).meta.total,
       0
     )
@@ -359,7 +364,7 @@ describe('the-driver-r-d-b', function () {
   })
 
   it('sqlite/issues/5', async () => {
-    const storage = `${__dirname}/../sqlite-issue-5.db`
+    const storage = `${__dirname}/../tmp/sqlite-issue-5.db`
     await unlinkAsync(storage).catch(() => null)
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
