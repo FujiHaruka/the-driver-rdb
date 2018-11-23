@@ -201,6 +201,9 @@ describe('the-driver-r-d-b', function () {
     )
 
     await driver.update('Box', box02.id, { v: 2 })
+
+    await driver.update('Box', box01.id, { group: null })
+    equal((await driver.one('Box', box01.id)).group, null)
   })
 
   it('Handling object and array', async () => {
