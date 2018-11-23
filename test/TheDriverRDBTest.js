@@ -417,7 +417,7 @@ describe('the-driver-r-d-b', function () {
       dialect: 'sqlite',
       storage
     })
-    await unlinkAsync(storage)
+    await unlinkAsync(storage).catch(() => null)
     await driver.drop('Ball')
     const created = await driver.create('Ball', { 'profile.name': 'やまだ' })
     equal(created['profile.name'], 'やまだ')
