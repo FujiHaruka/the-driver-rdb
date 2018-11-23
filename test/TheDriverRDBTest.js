@@ -115,8 +115,13 @@ describe('the-driver-r-d-b', function () {
     )
 
     equal(
-      1,
       (await driver.list('Box', { filter: { name: { $like: '%02%' } } })).meta.total,
+      1,
+    )
+
+    equal(
+      (await driver.list('Box', { filter: { $or: [{ name: { $like: '%02%' } }] } })).meta.total,
+      1,
     )
 
     equal(
