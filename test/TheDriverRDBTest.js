@@ -420,7 +420,7 @@ describe('the-driver-r-d-b', function () {
     await unlinkAsync(storage)
     await driver.drop('Ball')
     const created = await driver.create('Ball', { 'profile.name': 'やまだ' })
-    ok(created)
+    equal(created['profile.name'], 'やまだ')
   })
 })
 
