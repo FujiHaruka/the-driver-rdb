@@ -410,6 +410,18 @@ describe('the-driver-r-d-b', function () {
       }
     }
   })
+
+  it('Name with dot', async () => {
+    const storage = `${__dirname}/../tmp/dot-name-test.db`
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage
+    })
+    await unlinkAsync(storage)
+    await driver.drop('Ball')
+    const created = await driver.create('Ball', { 'profile.name': 'やまだ' })
+    ok(created)
+  })
 })
 
 /* global describe, before, after, it */
