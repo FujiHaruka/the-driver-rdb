@@ -331,14 +331,36 @@ describe('the-driver-r-d-b', function () {
     equal(updated02.attr04.length, 5000)
 
     {
+      await Promise.all(
+        new Array(0).fill(null).map((_, i) =>
+          driver.update('Poster', poster01.id, Object.assign({},
+            ...new Array(100).fill(null).map((_, i) => ({
+              i: new Array(2000).fill(null).map((_) => ({ i })).join('')
+            }))
+          ))
+        )
+      )
+    }
+
+    const updated03 = await driver.update('Poster', poster01.id, {
+      attr04: 'hoge',
+    })
+    equal(updated03.attr04.length, 4)
+
+    {
       const updated02 = await driver.update('Poster', poster01.id, { attr02: 123 })
       equal(updated02.attr02, 123)
+    }
+
+    {
+      const one = await driver.one('Poster', poster01.id)
+      equal(one.attr01.length, 3999)
     }
   })
 
   it('Multiple instance', async () => {
     const storage = `${__dirname}/../tmp/multiple-instance.db`
-    // await unlinkAsync(storage).catch(() => null)
+    await unlinkAsync(storage).catch(() => null)
     const driver01 = new TheDriverRDB({
       dialect: 'sqlite',
       storage
