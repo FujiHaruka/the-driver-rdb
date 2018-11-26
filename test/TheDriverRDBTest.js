@@ -182,6 +182,8 @@ describe('the-driver-r-d-b', function () {
     })
     await driver.drop('Box')
     await driver.drop('BoxGroup')
+    equal((await driver.list('Box')).entities.length, 0)
+    equal((await driver.list('BoxGroup')).entities.length, 0)
 
     const group01 = await driver.create('BoxGroup', { name: 'bg01' })
     const group02 = await driver.create('BoxGroup', { name: 'bg02' })
