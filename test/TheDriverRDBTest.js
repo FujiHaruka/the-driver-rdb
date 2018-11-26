@@ -358,8 +358,6 @@ describe('the-driver-r-d-b', function () {
       'bar'
     )
 
-    await driver01.close()
-
     const driver02 = new TheDriverRDB({
       dialect: 'sqlite',
       storage: storage
@@ -369,7 +367,16 @@ describe('the-driver-r-d-b', function () {
       'bar',
     )
 
-    await driver02.create('HOGE', { foo2: 'bar2' })
+    await driver02.create('HOGE', {
+      foo2: 'bar2'
+    })
+
+    equal(
+      (await driver01.list('HOGE', { filter: { foo2: 'bar2' } })).meta.total,
+      1,
+    )
+
+    await driver01.close()
     await driver02.close()
   })
 
