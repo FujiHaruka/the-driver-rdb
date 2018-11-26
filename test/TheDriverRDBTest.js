@@ -311,7 +311,8 @@ describe('the-driver-r-d-b', function () {
       attr02: new Array(2000).fill('b').join('_'),
       attr03: {
         c: new Array(10).fill(null).map((_, i) => ({ i })),
-      }
+      },
+      attr04: 'x',
     })
 
     const { entities, meta } = await driver.list('Poster')
@@ -323,6 +324,11 @@ describe('the-driver-r-d-b', function () {
       }
     })
     equal(updated.attr03.c.length, 2000)
+
+    const updated02 = await driver.update('Poster', poster01.id, {
+      attr04: new Array(5000).fill(null).map((_, i) => ('_')).join(''),
+    })
+    equal(updated02.attr04.length, 5000)
 
     {
       const updated02 = await driver.update('Poster', poster01.id, { attr02: 123 })
