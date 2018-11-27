@@ -439,7 +439,7 @@ describe('the-driver-r-d-b', function () {
 
         await driver01.drop('hoge')
         await Promise.all(
-          new Array(100).fill(null).map((i) =>
+          new Array(100).fill(null).map((_, i) =>
             driver01.create('hoge', { i })
           )
         )
