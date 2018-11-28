@@ -255,7 +255,7 @@ describe('the-driver-r-d-b', function () {
     const user01Updated = await driver.update('User', user01.id, { strings: ['c'] })
 
     deepEqual(user01.strings, ['a', 'b'])
-    deepEqual(user02.strings, null)
+    equal(user02.strings, void(0))
     deepEqual(user01Updated.strings, ['c'])
 
     await driver.close()
@@ -458,6 +458,30 @@ describe('the-driver-r-d-b', function () {
     await driver.drop('Ball')
     const created = await driver.create('Ball', { 'profile.name': 'やまだ' })
     equal(created['profile.name'], 'やまだ')
+  })
+
+  it('Remove unknown property', async () => {
+    const storage = `${__dirname}/../tmp/remove-unknown.db`
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage
+    })
+    await unlinkAsync(storage).catch(() => null)
+    await driver.drop('Fire')
+
+    const f1 = await driver.create('Fire', { p1: 1, p2: 2 })
+    const f2 = await driver.create('Fire', { p3: 3, p4: 4 })
+
+    const f1One = await driver.one('Fire', f1.id)
+    const f2One = await driver.one('Fire', f2.id)
+    deepEqual(
+      Object.keys(f1One).sort(),
+      ['$$as', '$$at', '$$num', 'id', 'p1', 'p2'].sort()
+    )
+    deepEqual(
+      Object.keys(f2One).sort(),
+      ['$$as', '$$at', '$$num', 'id', 'p3', 'p4'].sort()
+    )
   })
 })
 
