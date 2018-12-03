@@ -483,6 +483,30 @@ describe('the-driver-r-d-b', function () {
       ['$$as', '$$at', '$$num', 'id', 'p3', 'p4'].sort()
     )
   })
+
+  it('Skip empty date', async () => {
+    const storage = `${__dirname}/../tmp/skip-empty-date.db`
+    const driver = new TheDriverRDB({
+      dialect: 'sqlite',
+      storage,
+    })
+    await unlinkAsync(storage).catch(() => null)
+    await driver.drop('Box')
+    const created01 = await driver.create('Box', { name: 'b01', date: new Date('2018/11/10') })
+    const created02 = await driver.create('Box', { name: 'b02', date: null })
+
+    console.log(
+      (await driver.list('Box', {
+        filter: {
+          date: {
+            $lte: new Date('2018/11/11'),
+            $gte: new Date('2018/11/08'),
+            $ne: null,
+          }
+        }
+      })).entities.length
+    )
+  })
 })
 
 /* global describe, before, after, it */
