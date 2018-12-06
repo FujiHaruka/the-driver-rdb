@@ -492,10 +492,11 @@ describe('the-driver-r-d-b', function () {
     })
     await unlinkAsync(storage).catch(() => null)
     await driver.drop('Box')
-    const created01 = await driver.create('Box', { name: 'b01', date: new Date('2018/11/10') })
-    const created02 = await driver.create('Box', { name: 'b02', date: null })
+    const created01 = await driver.create('Box', { name: 'b01', x: 1, y: 2, date: new Date('2018/11/10') })
+    const created02 = await driver.create('Box', { name: 'b02', x: 1, y: 3, date: null })
+    const created03 = await driver.create('Box', { name: 'b03', x: 2, y: 3, date: null })
 
-    console.log(
+    equal(
       (await driver.list('Box', {
         filter: {
           date: {
@@ -504,7 +505,13 @@ describe('the-driver-r-d-b', function () {
             $ne: null,
           }
         }
-      })).entities.length
+      })).entities.length,
+      1
+    )
+
+    equal(
+      (await driver.list('Box', { filter: { x: 1, y: 2 } })).entities.length,
+      (await driver.list('Box', { filter: { $and: [{ x: 1 }, { y: 2 }] } })).entities.length,
     )
   })
 })
