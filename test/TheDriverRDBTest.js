@@ -415,17 +415,18 @@ describe('the-driver-r-d-b', function () {
     await unlinkAsync(storage).catch(() => null)
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
-      storage: storage,
+      storage,
       // logging: console.log,
     })
     const lump = clayLump('hec-eye-alpha', { driver, })
     let User = lump.resource('user')
     await User.drop()
-    let created = await User.create({ name: 'hoge' })
-    let found = await User.first({ name: 'hoge' })
-    let destroyed = await User.destroy(found.id)
+    const created = await User.create({ name: 'hoge' })
+    console.log('created', created.id)
+    const found = await User.first({ name: 'hoge' })
+    const destroyed = await User.destroy(found.id)
     equal(destroyed, 1)
-    let mustBeNull = await User.first({ name: 'hoge' })
+    const mustBeNull = await User.first({ name: 'hoge' })
     ok(!mustBeNull)
   })
 
@@ -433,30 +434,25 @@ describe('the-driver-r-d-b', function () {
     for (let i = 0; i < 1; i++) {
       const storage = `${__dirname}/../tmp/a-lot-of-create.db`
       await unlinkAsync(storage).catch(() => null)
-      for (let j = 0; j < 1; j++) {
+      for (let j = 0; j < 2; j++) {
         const driver01 = new TheDriverRDB({
           dialect: 'sqlite',
-          storage
+          storage,
         })
 
         await driver01.drop('hoge')
         const created = await Promise.all(
-          new Array(3).fill(null).map(async (_, i) => {
+          new Array(10).fill(null).map(async (_, i) => {
             const attributes = { i, [`i-${i}`]: i, }
             const created = await driver01.create('hoge', attributes)
-            if (created[`i-${i}`] !== i) {
-              const Model = await driver01.resourceModelFor('hoge', { attributes })
-              console.log('!!!not ok')
-            } else {
-              console.log('!ok')
-            }
+            equal(created[`i-${i}`], i)
             return created
           })
         )
         await Promise.all(
           created.map(async (entity, i) => {
             const updated = await driver01.update('hoge', entity.id, { u: '2' })
-            // equal(updated[`i-${i}`], i)
+            equal(updated[`i-${i}`], i)
           })
         )
 
@@ -481,7 +477,7 @@ describe('the-driver-r-d-b', function () {
     const storage = `${__dirname}/../tmp/remove-unknown.db`
     const driver = new TheDriverRDB({
       dialect: 'sqlite',
-      storage
+      storage,
     })
     await unlinkAsync(storage).catch(() => null)
     await driver.drop('Fire')
