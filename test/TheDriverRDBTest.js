@@ -440,11 +440,18 @@ describe('the-driver-r-d-b', function () {
         })
 
         await driver01.drop('hoge')
-        await Promise.all(
-          new Array(100).fill(null).map((_, i) =>
-            driver01.create('hoge', { i })
+        const created = await Promise.all(
+          new Array(50).fill(null).map((_, i) =>
+            driver01.create('hoge', { i, [`i-${i}`]: i, })
           )
         )
+        await Promise.all(
+          created.map(async (entity, i) => {
+            const updated = await driver01.update('hoge', entity.id, { u: '2' })
+            equal(updated[`i-${i}`], i)
+          })
+        )
+
         await driver01.close()
       }
     }
